@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: application-configmap
+data:
+  NODE_ENV: "production"
+  APPLICATION_PORT: "4003"
+  APPLICATION_DB_HOST: "application-postgres-service"
+  APPLICATION_DB_PORT: "5432"
+  APPLICATION_DB_NAME: "applyhub"
+  APPLICATION_DB_USER: "applyhub"
+  APPLICATION_DB_PASSWORD: "applyhub"
+  MINIO_ENDPOINT: "minio-service"
+  MINIO_PORT: "9000"
+  MINIO_USE_SSL: "false"
+  MINIO_ACCESS_KEY: "applyhub"
+  MINIO_SECRET_KEY: "applyhub"
+  MINIO_BUCKET: "applyhub"

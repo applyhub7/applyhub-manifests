@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-deployment
+  template:
+    metadata:
+      labels:
+        app: frontend-deployment
+    spec:
+      containers:
+        - name: backend
+          image: noseyug/applyhub-frontend:dev-e11689e
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: frontend-configmap

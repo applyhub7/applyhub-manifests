@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minio-statefulset
+spec:
+  serviceName: "minio-headless-service" # Phải trùng với tên Service ở trên
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio-statefulset
+  template:
+    metadata:
+      labels:
+        app: minio-statefulset
+    spec:
+      containers:
+        - name: minio
+          image: minio/minio:latest # Dùng bản release ổn định
+          args:
+            - server
+            - /data
+            - --console-address
+            - ":9001" # Mở cổng giao diện Web
+          ports:
+            - containerPort: 9000
+            - containerPort: 9001
+          env:
+            - name: MINIO_ROOT_USER
+              value: "applyhub" # Tài khoản đăng nhập MinIO
+            - name: MINIO_ROOT_PASSWORD
+              value: "applyhub" # Mật khẩu đăng nhập MinIO (Tối thiểu 8 ký tự)
+          volumeMounts:
+            - name: minio-data
+              mountPath: /data # ĐÚNG CHÍNH TẢ: mountPath (Chữ n) và lùi vào 2 khoảng trắng
+      volumes:
+        - name: minio-data # Tên đường ống phải trùng với volumeMounts ở trên
+          persistentVolumeClaim:
+            claimName: minio-pvc # Gọi cục ổ đĩa ảo riêng biệt đã tạo ở File 1

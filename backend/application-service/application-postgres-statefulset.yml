@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: application-postgres-statefulset
+spec:
+  serviceName: "application-posgres-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: application-postgres-statefulset
+  template:
+    metadata:
+      labels:
+        app: application-postgres-statefulset
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: application-configmap
+                  key: APPLICATION_DB_NAME
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: application-configmap
+                  key: APPLICATION_DB_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: application-configmap
+                  key: APPLICATION_DB_PASSWORD
+          volumeMounts:
+            - name: pgdata
+              mountPath: /var/lib/postgresql/data
+
+      volumes:
+        - name: pgdata
+          persistentVolumeClaim:
+            claimName: application-postgres-pvc
