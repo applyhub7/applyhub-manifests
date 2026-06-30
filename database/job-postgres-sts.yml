@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: job-postgres-statefulset
+  name: job-postgres-sts
 spec:
-  serviceName: "job-postgres-service"
+  serviceName: "job-postgres-svc"
   replicas: 1
   selector:
     matchLabels:
-      app: job-postgres-statefulset
+      app: job-postgres-sts
   template:
     metadata:
       labels:
-        app: job-postgres-statefulset
+        app: job-postgres-sts
     spec:
       containers:
         - name: postgres
@@ -22,23 +22,28 @@ spec:
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
-                  name: job-configmap
+                  name: job-cm
                   key: JOB_DB_NAME
             - name: POSTGRES_USER
               valueFrom:
                 configMapKeyRef:
-                  name: job-configmap
+                  name: job-cm
                   key: JOB_DB_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: job-configmap
+                  name: job-cm
                   key: JOB_DB_PASSWORD
           volumeMounts:
             - name: pgdata
               mountPath: /var/lib/postgresql/data
 
-      volumes:
-        - name: pgdata
-          persistentVolumeClaim:
-            claimName: job-postgres-pvc
+  volumeClaimTemplates:
+   - metadata:
+       name: pgdata
+     spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 5Gi

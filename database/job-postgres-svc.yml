@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-postgres-service
+  name: job-postgres-svc
 spec:
   type: ClusterIP
   ports:
     - port: 5432
   selector:
-    app: auth-postgres-statefulset
+    app: job-postgres-sts

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-deployment
+  name: application-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth-deployment
+      app: application-deploy
   template:
     metadata:
       labels:
-        app: auth-deployment
+        app: application-deploy
     spec:
       containers:
         - name: backend
-          image: noseyug/applyhub-auth-service:dev-e11689e
+          image: noseyug/applyhub-application-service:dev-e11689e
           ports:
-            - containerPort: 4001
+            - containerPort: 4003
           envFrom:
             - configMapRef:
-                name: auth-configmap
+                name: application-cm

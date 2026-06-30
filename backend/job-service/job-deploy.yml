@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment
+  name: job-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend-deployment
+      app: job-deploy
   template:
     metadata:
       labels:
-        app: frontend-deployment
+        app: job-deploy
     spec:
       containers:
         - name: backend
-          image: noseyug/applyhub-frontend:dev-e11689e
+          image: noseyug/applyhub-job-service:dev-e11689e
           ports:
-            - containerPort: 80
+            - containerPort: 4002
           envFrom:
             - configMapRef:
-                name: frontend-configmap
+                name: job-cm

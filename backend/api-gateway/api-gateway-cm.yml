@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: api-gateway-configmap
+  name: api-gateway-cm
 data:
   NODE_ENV: "production"
   GATEWAY_PORT: "4000"

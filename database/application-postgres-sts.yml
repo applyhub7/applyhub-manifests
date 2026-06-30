@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: application-postgres-statefulset
+  name: application-postgres-sts
 spec:
-  serviceName: "application-posgres-service"
+  serviceName: "application-postgres-svc"
   replicas: 1
   selector:
     matchLabels:
-      app: application-postgres-statefulset
+      app: application-postgres-sts
   template:
     metadata:
       labels:
-        app: application-postgres-statefulset
+        app: application-postgres-sts
     spec:
       containers:
         - name: postgres
@@ -22,23 +22,29 @@ spec:
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
-                  name: application-configmap
+                  name: application-cm
                   key: APPLICATION_DB_NAME
             - name: POSTGRES_USER
               valueFrom:
                 configMapKeyRef:
-                  name: application-configmap
+                  name: application-cm
                   key: APPLICATION_DB_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: application-configmap
+                  name: application-cm
                   key: APPLICATION_DB_PASSWORD
           volumeMounts:
             - name: pgdata
               mountPath: /var/lib/postgresql/data
 
-      volumes:
-        - name: pgdata
-          persistentVolumeClaim:
-            claimName: application-postgres-pvc
+  volumeClaimTemplates:
+   - metadata:
+       name: pgdata
+     spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 5Gi
+
