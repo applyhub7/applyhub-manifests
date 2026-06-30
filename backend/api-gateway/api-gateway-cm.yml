@@ -5,6 +5,6 @@ metadata:
 data:
   NODE_ENV: "production"
   GATEWAY_PORT: "4000"
-  AUTH_URL: "http://auth-service:4001"
-  JOB_URL: "http://job-service:4002"
-  APPLICATION_URL: "http://application-service:4003"
+  AUTH_URL: "http://auth-svc:4001"
+  JOB_URL: "http://job-svc:4002"
+  APPLICATION_URL: "http://application-svc:4003"
