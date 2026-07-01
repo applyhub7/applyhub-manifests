@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: frontend-app
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: frontend-service=docker.io/noseyug/applyhub-frontend-service
+    argocd-image-updater.argoproj.io/frontend-service.update-strategy: latest
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/frontend-service.write-back-target: git:secret:argocd/git-creds
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/applyhub7/applyhub-manifests'
+    targetRevision: dev
+    path: apps-manifests/frontend-service
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
