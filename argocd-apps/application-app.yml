@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: application-app
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: application-service=docker.io/noseyug/applyhub-application-service
+    argocd-image-updater.argoproj.io/application-service.update-strategy: latest
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/application-service.write-back-target: git:secret:argocd/git-creds
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/applyhub7/applyhub'
+    targetRevision: dev
+    path: apps-manifests/application-service
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
