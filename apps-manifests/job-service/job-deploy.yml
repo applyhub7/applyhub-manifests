@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: noseyug/applyhub-job-service:dev-e11689e
+          image: docker.io/noseyug/applyhub-job-service:dev-e11689e
           ports:
             - containerPort: 4002
           envFrom:
