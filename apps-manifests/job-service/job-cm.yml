@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: job-cm
+data:
+  NODE_ENV: "production"
+  JOB_PORT: "4002"
+  JOB_DB_HOST: "job-postgres-svc"
+  JOB_DB_PORT: "5432"
+  JOB_DB_NAME: "applyhub"
+  JOB_DB_USER: "applyhub"
+  JOB_DB_PASSWORD: "applyhub"

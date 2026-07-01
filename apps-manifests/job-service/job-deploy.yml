@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: job-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: job-deploy
+  template:
+    metadata:
+      labels:
+        app: job-deploy
+    spec:
+      containers:
+        - name: backend
+          image: noseyug/applyhub-job-service:dev-e11689e
+          ports:
+            - containerPort: 4002
+          envFrom:
+            - configMapRef:
+                name: job-cm
