@@ -7,7 +7,7 @@ metadata:
     argocd-image-updater.argoproj.io/image-list: job-service=docker.io/noseyug/applyhub-job-service
     argocd-image-updater.argoproj.io/job-service.update-strategy: latest
     argocd-image-updater.argoproj.io/write-back-method: git
-    argocd-image-updater.argoproj.io/auth-service.manifest-path: job-deploy.yml
+    argocd-image-updater.argoproj.io/job-service.manifest-path: job-deploy.yml
     argocd-image-updater.argoproj.io/job-service.write-back-target: git:secret:argocd/git-creds
 spec:
   project: default
