@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: 'https://github.com/applyhub7/applyhub-manifests'
     targetRevision: dev
-    path: apps-manifests/frontend-service
+    path: apps-manifests/frontend
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: dev

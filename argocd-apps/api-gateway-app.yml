@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: 'https://github.com/applyhub7/applyhub-manifests'
     targetRevision: dev
-    path: apps-manifests/api-gateway-service
+    path: apps-manifests/api-gateway
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: dev
