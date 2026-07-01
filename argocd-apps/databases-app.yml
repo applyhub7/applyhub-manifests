@@ -9,6 +9,8 @@ spec:
     repoURL: 'https://github.com/applyhub7/applyhub-manifests'
     targetRevision: dev
     path: apps-manifests/databases
+    directory:
+      recurse: true
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: dev
