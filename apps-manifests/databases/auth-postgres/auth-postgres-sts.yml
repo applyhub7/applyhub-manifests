@@ -22,18 +22,18 @@ spec:
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
-                  name: auth-cm
-                  key: AUTH_DB_NAME
+                  name: auth-postgres-cm
+                  key: POSTGRES_DB
             - name: POSTGRES_USER
               valueFrom:
                 configMapKeyRef:
-                  name: auth-cm
-                  key: AUTH_DB_USER
+                  name: auth-postgres-cm
+                  key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: auth-cm
-                  key: AUTH_DB_PASSWORD
+                  name: auth-postgres-cm
+                  key: POSTGRES_PASSWORD
           volumeMounts:
             - name: pgdata
               mountPath: /var/lib/postgresql/data

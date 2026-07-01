@@ -28,13 +28,13 @@ spec:
             - name: MINIO_ROOT_USER
               valueFrom:
                 configMapKeyRef:
-                  name: application-cm
-                  key: MINIO_ACCESS_KEY
+                  name: application-minio-cm
+                  key: MINIO_ROOT_USER
             - name: MINIO_ROOT_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                 name: application-cm
-                 key: MINIO_SECRET_KEY
+                  name: application-minio-cm
+                  key: MINIO_ROOT_PASSWORD
           volumeMounts:
             - name: pgdata
               mountPath: /data
