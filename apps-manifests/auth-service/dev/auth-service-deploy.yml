@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: noseyug/applyhub-auth-service:aec226e
+          image: noseyug/applyhub-auth-service:fdee975
           ports:
             - containerPort: 4001
           envFrom:
