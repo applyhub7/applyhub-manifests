@@ -1,0 +1,25 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: auth-service-postgres-es
+  namespace: databases
+  labels:
+    app: auth-service-postgres
+    tier: database
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: aws-sm-css
+    kind: ClusterSecretStore
+  target:
+    name: auth-service-postgres-sec
+    creationPolicy: Owner
+  data:
+  - secretKey: POSTGRES_USER
+    remoteRef:
+      key: dev/applyhub/auth-service
+      property: AUTH_DB_USER
+  - secretKey: POSTGRES_PASSWORD
+    remoteRef:
+      key: dev/applyhub/auth-service
+      property: AUTH_DB_PASSWORD

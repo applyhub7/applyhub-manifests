@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: job-service-postgres-svc
+  namespace: databases
+  labels:
+    app: job-service-postgres
+    tier: database
+spec:
+  clusterIP: None
+  ports:
+    - port: 5432
+  selector:
+    app: job-service-postgres
