@@ -1,0 +1,35 @@
+image:
+  name: noseyug/applyhub-application-service
+  tag: 306f04f
+
+container:
+  port: 4003
+
+configmap:
+  enabled: true
+  data:
+    NODE_ENV: "development"
+    APPLICATION_PORT: "4003"
+    APPLICATION_DB_HOST: "application-service-postgres-svc.databases.svc.cluster.local"
+    APPLICATION_DB_PORT: "5432"
+    APPLICATION_DB_NAME: "applyhub"
+    MINIO_ENDPOINT: "application-service-minio-svc.databases.svc.cluster.local"
+    MINIO_PORT: "9000"
+    MINIO_USE_SSL: "false"
+    MINIO_BUCKET: "applyhub"
+    MINIO_REGION: "ap-southeast-1"
+
+externalsecret:
+  enabled: true
+  secretStoreRef:
+    name: aws-sm-css
+    kind: ClusterSecretStore
+  target:
+    creationPolicy: Owner
+  refreshInterval: 1h
+  remoteKey: dev/applyhub/application-service
+  properties:
+    - APPLICATION_DB_USER
+    - APPLICATION_DB_PASSWORD
+    - MINIO_ACCESS_KEY
+    - MINIO_SECRET_KEY

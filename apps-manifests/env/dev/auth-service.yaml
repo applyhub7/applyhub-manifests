@@ -1,0 +1,29 @@
+image:
+  name: noseyug/applyhub-auth-service
+  tag: "475770f"
+
+container:
+  port: 4001
+
+configmap:
+  enabled: true
+  data:
+    NODE_ENV: "development"
+    AUTH_PORT: "4001"
+    AUTH_DB_HOST: "auth-service-postgres-svc.databases.svc.cluster.local"
+    AUTH_DB_PORT: "5432"
+    AUTH_DB_NAME: "applyhub"
+    
+externalsecret:
+  enabled: true
+  secretStoreRef:
+    name: aws-sm-css
+    kind: ClusterSecretStore
+  target:
+    creationPolicy: Owner
+  refreshInterval: 1h
+  remoteKey: dev/applyhub/auth-service
+  properties:
+    - AUTH_DB_USER
+    - AUTH_DB_PASSWORD
+    - JWT_SECRET
