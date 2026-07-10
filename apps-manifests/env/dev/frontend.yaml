@@ -1,0 +1,21 @@
+image:
+  name: noseyug/applyhub-frontend
+  tag: d5ddeb5
+
+probes:
+  liveness:
+    path: /
+  readiness:
+    path: /
+
+ingress:
+  enabled: true
+  className: nginx
+  host: applyhub-dev.noseyug.online
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-dev-ci"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  paths:
+    - path: /
+      pathType: ImplementationSpecific
+      port: 80

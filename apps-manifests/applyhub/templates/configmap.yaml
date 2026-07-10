@@ -1,0 +1,11 @@
+{{- if .Values.configmap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-cm
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name }}
+data: 
+  {{- toYaml .Values.configmap.data | nindent 2 }}
+{{- end }}

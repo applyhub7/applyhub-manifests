@@ -1,0 +1,36 @@
+grafana:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-dev-ci"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    hosts:
+      - grafana.noseyug.online
+    tls:
+      - secretName: grafana-server-tls
+        hosts:
+          - grafana.noseyug.online
+
+  persistence:
+    enabled: true
+    storageClassName: "gp3" 
+    accessModes:
+      - ReadWriteOnce
+    size: 5Gi
+
+prometheus:
+  ingress:
+    enabled: false
+
+  prometheusSpec:
+    retention: 15d
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: "gp3"
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 20Gi

@@ -1,0 +1,32 @@
+image:
+  name: noseyug/applyhub-api-gateway
+  tag: b68571f
+
+container:
+  port: 4000
+    
+configmap:
+  enabled: true
+  data:
+    NODE_ENV: "development"
+    GATEWAY_PORT: "4000"
+    AUTH_URL: "http://auth-service-svc"
+    JOB_URL: "http://job-service-svc"
+    APPLICATION_URL: "http://application-service-svc"
+
+service:
+  type: ClusterIP
+  port: 4000
+    
+ingress:
+  enabled: true
+  className: nginx
+  host: applyhub-dev.noseyug.online
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-dev-ci"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  paths:
+    - path: /api(/|$)(.*)
+      pathType: ImplementationSpecific
+      port: 4000
