@@ -1,10 +1,8 @@
 image:
   name: noseyug/applyhub-api-gateway
-  tag: b68571f
-
+  tag: de77aad
 container:
   port: 4000
-    
 configmap:
   enabled: true
   data:
@@ -13,11 +11,9 @@ configmap:
     AUTH_URL: "http://auth-service-svc"
     JOB_URL: "http://job-service-svc"
     APPLICATION_URL: "http://application-service-svc"
-
 service:
   type: ClusterIP
   port: 4000
-    
 ingress:
   enabled: true
   className: nginx
