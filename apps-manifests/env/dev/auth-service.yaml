@@ -1,10 +1,8 @@
 image:
   name: noseyug/applyhub-auth-service
-  tag: "475770f"
-
+  tag: "0f2377f"
 container:
   port: 4001
-
 configmap:
   enabled: true
   data:
@@ -13,7 +11,6 @@ configmap:
     AUTH_DB_HOST: "auth-service-postgres-svc.databases.svc.cluster.local"
     AUTH_DB_PORT: "5432"
     AUTH_DB_NAME: "applyhub"
-    
 externalsecret:
   enabled: true
   secretStoreRef:
