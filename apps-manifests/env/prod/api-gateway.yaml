@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
   name: noseyug/applyhub-api-gateway
-  tag: v1.0.0
+  tag: v2.0.0
 container:
   port: 4000
 configmap:
