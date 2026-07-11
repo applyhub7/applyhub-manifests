@@ -1,6 +1,6 @@
 image:
   name: noseyug/applyhub-auth-service
-  tag: "77110a7"
+  tag: "c0836ad"
 container:
   port: 4001
 configmap:
