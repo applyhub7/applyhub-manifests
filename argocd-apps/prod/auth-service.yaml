@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: auth-service-prod
+  namespace: argocd
+spec:
+  project: prod
+  sources:
+    - repoURL: https://github.com/applyhub7/applyhub-manifests
+      targetRevision: main
+      path: apps-manifests/applyhub
+      helm:
+        releaseName: auth-service
+        valueFiles:
+          - $values/apps-manifests/env/prod/auth-service.yaml
+    - repoURL: https://github.com/applyhub7/applyhub-manifests
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

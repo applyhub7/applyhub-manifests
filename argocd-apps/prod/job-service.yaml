@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: job-service-prod
+  namespace: argocd
+spec:
+  project: prod
+  sources:
+    - repoURL: https://github.com/applyhub7/applyhub-manifests
+      targetRevision: main
+      path: apps-manifests/applyhub
+      helm:
+        releaseName: job-service
+        valueFiles:
+          - $values/apps-manifests/env/prod/job-service.yaml
+    - repoURL: https://github.com/applyhub7/applyhub-manifests
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

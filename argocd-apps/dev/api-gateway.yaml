@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: api-gateway-dev
+  namespace: argocd
+spec:
+  project: dev
+  sources:
+    - repoURL: https://github.com/applyhub7/applyhub-manifests
+      targetRevision: main
+      path: apps-manifests/applyhub
+      helm:
+        releaseName: api-gateway
+        valueFiles:
+          - $values/apps-manifests/env/dev/api-gateway.yaml
+    - repoURL: https://github.com/applyhub7/applyhub-manifests
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
