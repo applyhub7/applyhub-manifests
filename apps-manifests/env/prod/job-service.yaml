@@ -1,12 +1,9 @@
 replicaCount: 2
-
 image:
   name: noseyug/applyhub-job-service
-  tag: cb13ca3
-
+  tag: v0.0.1
 container:
   port: 4002
-
 configmap:
   enabled: true
   data:
@@ -15,7 +12,6 @@ configmap:
     JOB_DB_HOST: "applyhub-db.crwsegu2uf4l.ap-southeast-1.rds.amazonaws.com"
     JOB_DB_PORT: "5432"
     JOB_DB_NAME: "job_service"
-
 externalsecret:
   enabled: true
   secretStoreRef:
@@ -28,14 +24,12 @@ externalsecret:
   properties:
     - JOB_DB_USER
     - JOB_DB_PASSWORD
-
 hpa:
   enabled: true
   minReplicas: 2
   maxReplicas: 5
   cpuTargetUtilization: 70
   memoryTargetUtilization: 70
-
 pdb:
   enabled: true
   minAvailable: 1

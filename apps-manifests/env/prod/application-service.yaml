@@ -1,12 +1,9 @@
 replicaCount: 2
-
 image:
   name: noseyug/applyhub-application-service
-  tag: 306f04f
-
+  tag: v0.0.1
 container:
   port: 4003
-
 configmap:
   enabled: true
   data:
@@ -20,7 +17,6 @@ configmap:
     MINIO_USE_SSL: "true"
     MINIO_BUCKET: "applyhub-bucket"
     MINIO_REGION: "ap-southeast-1"
-
 externalsecret:
   enabled: true
   secretStoreRef:
@@ -35,14 +31,12 @@ externalsecret:
     - APPLICATION_DB_PASSWORD
     - MINIO_ACCESS_KEY
     - MINIO_SECRET_KEY
-
 hpa:
   enabled: true
   minReplicas: 2
   maxReplicas: 5
   cpuTargetUtilization: 70
   memoryTargetUtilization: 70
-
 pdb:
   enabled: true
   minAvailable: 1
