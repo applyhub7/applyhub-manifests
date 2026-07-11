@@ -1,0 +1,52 @@
+replicaCount: 1
+
+image:
+  pullPolicy: IfNotPresent
+
+container:
+  port: 80
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    cpu: 100m
+    memory: 256Mi
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 25%
+    maxSurge: 25%
+
+probes:
+  liveness:
+    path: /health
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    failureThreshold: 3
+  readiness:
+    path: /health
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    failureThreshold: 3
+
+configmap:
+  enabled: false
+    
+externalsecret:
+  enabled: false
+
+service:
+  type: ClusterIP
+  port: 80  
+
+ingress:
+  enabled: false
+
+hpa:
+  enabled: false
+
+pdb:
+  enabled: false

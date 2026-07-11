@@ -1,0 +1,26 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: application-service-minio-es
+  namespace: databases
+  labels:
+    app: application-service-minio
+    tier: database
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: aws-sm-css
+    kind: ClusterSecretStore
+  target:
+    name: application-service-minio-sec
+    creationPolicy: Owner
+  data:
+  - secretKey: MINIO_ROOT_USER 
+    remoteRef:
+      key: dev/applyhub/application-service
+      property: MINIO_ACCESS_KEY
+  - secretKey: MINIO_ROOT_PASSWORD
+    remoteRef:
+      key: dev/applyhub/application-service
+      property: MINIO_SECRET_KEY
+

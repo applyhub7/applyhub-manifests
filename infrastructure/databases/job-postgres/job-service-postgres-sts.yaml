@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: job-service-postgres-sts
+  namespace: databases
+  labels:
+    app: job-service-postgres
+    tier: database
+spec:
+  serviceName: "job-service-postgres-svc"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: job-service-postgres
+  template:
+    metadata:
+      labels:
+        app: job-service-postgres
+    spec:
+      terminationGracePeriodSeconds: 30
+      initContainers:
+      - name: init-data
+        image: busybox:1.36
+        resources:
+          requests:
+            cpu: 50m
+            memory: 32Mi
+          limits:
+            cpu: 100m
+            memory: 64Mi
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          echo "=== Preparing data directory ==="
+          rm -rf /var/lib/postgresql/data/lost+found 2>/dev/null || true
+          mkdir -p /var/lib/postgresql/data/pgdata
+          chown -R 999:999 /var/lib/postgresql/data
+          echo "=== Data directory ready ==="
+          ls -la /var/lib/postgresql/data
+        volumeMounts:
+        - name: pgdata
+          mountPath: /var/lib/postgresql/data
+      containers:
+      - name: postgres
+        image: postgres:16-alpine
+        ports:
+        - containerPort: 5432
+          name: postgres
+        env:
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        envFrom:
+        - configMapRef:
+            name: job-service-postgres-cm
+        - secretRef:
+            name: job-service-postgres-sec
+        resources:
+          requests:
+            cpu: 300m
+            memory: 512Mi
+          limits:
+            cpu: 800m
+            memory: 1Gi
+        volumeMounts:
+        - name: pgdata
+          mountPath: /var/lib/postgresql/data
+        readinessProbe:
+          exec:
+            command: ["pg_isready", "-U", "postgres"]
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command: ["pg_isready", "-U", "postgres"]
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 5
+  volumeClaimTemplates:
+  - metadata:
+      name: pgdata
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "gp3"
+      resources:
+        requests:
+          storage: 5Gi

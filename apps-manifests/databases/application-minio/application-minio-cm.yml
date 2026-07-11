@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: application-minio-cm
-data:
-  MINIO_ROOT_USER: "applyhub"
-  MINIO_ROOT_PASSWORD: "applyhub"
