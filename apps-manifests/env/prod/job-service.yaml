@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
   name: noseyug/applyhub-job-service
-  tag: v0.0.2
+  tag: v0.0.3
 container:
   port: 4002
 configmap:
