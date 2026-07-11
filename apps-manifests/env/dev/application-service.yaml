@@ -1,10 +1,8 @@
 image:
   name: noseyug/applyhub-application-service
-  tag: 306f04f
-
+  tag: 23a53ea
 container:
   port: 4003
-
 configmap:
   enabled: true
   data:
@@ -18,7 +16,6 @@ configmap:
     MINIO_USE_SSL: "false"
     MINIO_BUCKET: "applyhub"
     MINIO_REGION: "ap-southeast-1"
-
 externalsecret:
   enabled: true
   secretStoreRef:

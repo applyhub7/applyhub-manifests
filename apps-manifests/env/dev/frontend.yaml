@@ -1,13 +1,11 @@
 image:
   name: noseyug/applyhub-frontend
-  tag: d5ddeb5
-
+  tag: 23a53ea
 probes:
   liveness:
     path: /
   readiness:
     path: /
-
 ingress:
   enabled: true
   className: nginx
