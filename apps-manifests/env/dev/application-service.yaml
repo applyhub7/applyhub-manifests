@@ -1,6 +1,6 @@
 image:
   name: noseyug/applyhub-application-service
-  tag: 6f16e9b
+  tag: edb60d2
 container:
   port: 4003
 configmap:
