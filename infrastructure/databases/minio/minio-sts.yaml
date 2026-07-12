@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: application-service-minio-sts
+  name: minio-sts
   namespace: databases
   labels:
-    app: application-service-minio
+    app: minio
     tier: database
 spec:
-  serviceName: "application-service-minio-svc"
+  serviceName: "minio-svc"
   replicas: 1
   selector:
     matchLabels:
-      app: application-service-minio
+      app: minio
   template:
     metadata:
       labels:
-        app: application-service-minio
+        app: minio
     spec:
       containers:
         - name: minio
@@ -30,7 +30,7 @@ spec:
             - containerPort: 9001
           envFrom:
             - secretRef:
-                name: application-service-minio-sec
+                name: minio-sec
           volumeMounts:
             - name: pgdata
               mountPath: /data

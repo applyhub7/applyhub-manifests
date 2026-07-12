@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: application-service-postgres-svc
+  name: postgres-svc
   namespace: databases
   labels:
-    app: application-service-postgres
+    app: postgres
     tier: database
 spec:
   clusterIP: None
   ports:
     - port: 5432
   selector:
-    app: application-service-postgres
+    app: postgres

@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: job-service-postgres-sts
+  name: postgres-sts
   namespace: databases
   labels:
-    app: job-service-postgres
+    app: postgres
     tier: database
 spec:
-  serviceName: "job-service-postgres-svc"
+  serviceName: "postgres-svc"
   replicas: 1
   selector:
     matchLabels:
-      app: job-service-postgres
+      app: postgres
   template:
     metadata:
       labels:
-        app: job-service-postgres
+        app: postgres
     spec:
       terminationGracePeriodSeconds: 30
       initContainers:
@@ -51,9 +51,9 @@ spec:
           value: /var/lib/postgresql/data/pgdata
         envFrom:
         - configMapRef:
-            name: job-service-postgres-cm
+            name: postgres-cm
         - secretRef:
-            name: job-service-postgres-sec
+            name: postgres-sec
         resources:
           requests:
             cpu: 300m
