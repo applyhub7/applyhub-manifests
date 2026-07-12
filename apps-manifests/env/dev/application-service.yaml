@@ -1,6 +1,6 @@
 image:
   name: noseyug/applyhub-application-service
-  tag: 306f04f
+  tag: "306f04f"
 
 container:
   port: 4003
