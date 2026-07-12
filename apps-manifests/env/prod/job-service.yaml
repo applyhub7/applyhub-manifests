@@ -1,4 +1,3 @@
-replicaCount: 2
 image:
   name: noseyug/applyhub-job-service
   tag: "v0.0.1"

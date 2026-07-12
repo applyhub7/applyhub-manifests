@@ -1,4 +1,3 @@
-replicaCount: 2
 image:
   name: noseyug/applyhub-auth-service
   tag: "v0.0.1"
