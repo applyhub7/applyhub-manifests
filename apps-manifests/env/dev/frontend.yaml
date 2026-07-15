@@ -1,6 +1,6 @@
 image:
   name: noseyug/applyhub-frontend
-  tag: "3360f8c"
+  tag: "04b7207"
 probes:
   liveness:
     path: /
