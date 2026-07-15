@@ -1,6 +1,6 @@
 image:
   name: noseyug/applyhub-application-service
-  tag: "v0.0.4"
+  tag: "v0.0.5"
 container:
   port: 4003
 configmap:
@@ -39,3 +39,5 @@ hpa:
 pdb:
   enabled: true
   minAvailable: 1
+release:
+  sourceTag: v0.0.5

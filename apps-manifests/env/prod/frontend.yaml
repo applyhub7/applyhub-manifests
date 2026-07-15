@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
   name: noseyug/applyhub-frontend
-  tag: "v0.0.4"
+  tag: "v0.0.5"
 probes:
   liveness:
     path: /
@@ -21,3 +21,5 @@ ingress:
 pdb:
   enabled: true
   minAvailable: 1
+release:
+  sourceTag: v0.0.5
