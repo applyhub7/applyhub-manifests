@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
   name: noseyug/applyhub-frontend
-  tag: "v0.0.1"
+  tag: "v0.0.4"
 probes:
   liveness:
     path: /
