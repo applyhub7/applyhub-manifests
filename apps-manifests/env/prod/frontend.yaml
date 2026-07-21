@@ -21,5 +21,3 @@ ingress:
 pdb:
   enabled: true
   minAvailable: 1
-release:
-  sourceTag: v0.0.5
