@@ -18,7 +18,7 @@ PostgreSQL, MinIO and AWS-managed services.
 - [🗄️ Data And Storage](#data-and-storage)
 - [🧪 Validate Locally](#validate-locally)
 - [📝 Notes](#notes)
-- [🔗 Related Repository](#related-repository)
+- [🔗 Related Repositories](#related-repositories)
 
 ## ✨ Highlights
 
@@ -170,6 +170,9 @@ helm upgrade --install auth-service ./apps-manifests/applyhub \
 - ExternalSecret resources require matching AWS secret keys/properties.
 - Monitoring values exist under `infrastructure/monitoring/values.yaml`.
 
-## 🔗 Related Repository
+## 🔗 Related Repositories
 
-- Application source code: `https://github.com/applyhub7/applyhub`
+| Repository | Purpose |
+| --- | --- |
+| `https://github.com/applyhub7/applyhub` | Microservice source code and Docker image build pipeline |
+| `https://github.com/applyhub7/applyhub-manifests` | Helm chart, environment values and Argo CD application definitions |
