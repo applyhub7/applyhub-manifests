@@ -1,11 +1,10 @@
 # ApplyHub Kubernetes Manifests
 
-GitOps deployment repository for ApplyHub, a microservices job application
-platform. This repo demonstrates a production-style Kubernetes setup with Argo
-CD, Helm, NGINX Ingress, cert-manager, External Secrets, AWS Secrets Manager,
-PostgreSQL, MinIO and AWS-managed services.
+Kubernetes manifests repository for ApplyHub. It contains the Helm chart,
+environment values and Argo CD application definitions used to deploy the
+microservices to development and production environments.
 
-## 📚 Table Of Contents
+## 📚 Table of Contents
 
 - [✨ Highlights](#highlights)
 - [🏗️ Architecture](#architecture)
@@ -20,6 +19,8 @@ PostgreSQL, MinIO and AWS-managed services.
 - [📝 Notes](#notes)
 - [🔗 Related Repositories](#related-repositories)
 
+<a id="highlights"></a>
+
 ## ✨ Highlights
 
 - Argo CD app-of-apps deployment model.
@@ -30,6 +31,8 @@ PostgreSQL, MinIO and AWS-managed services.
 - Dev PostgreSQL and MinIO running in-cluster.
 - Production configuration for Amazon RDS and Amazon S3.
 - Rolling updates, health probes, backend HPA and PDB for production workloads.
+
+<a id="architecture"></a>
 
 ## 🏗️ Architecture
 
@@ -55,6 +58,8 @@ flowchart LR
 | `job-service` | 4002 | ClusterIP |
 | `application-service` | 4003 | ClusterIP |
 
+<a id="deployment-flow"></a>
+
 ## 🚀 Deployment Flow
 
 ```text
@@ -69,6 +74,8 @@ Source change
 Development uses short commit SHA image tags. Production uses immutable release
 tags for controlled rollout and rollback.
 
+<a id="repository-structure"></a>
+
 ## 📁 Repository Structure
 
 ```text
@@ -78,6 +85,8 @@ apps-manifests/applyhub/    # Reusable Helm chart
 apps-manifests/env/         # Dev/prod service values
 infrastructure/             # Secrets, TLS, databases, monitoring
 ```
+
+<a id="environments"></a>
 
 ## 🌐 Environments
 
@@ -90,6 +99,8 @@ infrastructure/             # Secrets, TLS, databases, monitoring
 | Object storage | MinIO | Amazon S3 |
 | Availability | Single-replica oriented | Backend HPA and PDB; frontend replicas and PDB |
 
+<a id="argo-cd"></a>
+
 ## 🔄 Argo CD
 
 The repo uses app-of-apps:
@@ -99,6 +110,8 @@ The repo uses app-of-apps:
 - Each child app deploys one service with the shared Helm chart.
 - Values come from `apps-manifests/env/<env>/<service>.yaml`.
 - Automated sync, prune and self-heal are enabled.
+
+<a id="helm-chart"></a>
 
 ## ⛵ Helm Chart
 
@@ -114,6 +127,8 @@ The shared chart can create:
 
 Defaults live in `apps-manifests/applyhub/values.yaml`. Service-specific
 settings live in `apps-manifests/env/dev` and `apps-manifests/env/prod`.
+
+<a id="secrets-and-tls"></a>
 
 ## 🔐 Secrets And TLS
 
@@ -135,6 +150,8 @@ cert-manager issues TLS certificates with DNS-01 validation through Cloudflare.
 | dev | `applyhub-dev.noseyug.online` | `letsencrypt-dev-ci` |
 | prod | `applyhub.noseyug.online` | `letsencrypt-prod-ci` |
 
+<a id="data-and-storage"></a>
+
 ## 🗄️ Data And Storage
 
 Development includes in-cluster infrastructure:
@@ -144,6 +161,8 @@ Development includes in-cluster infrastructure:
 - Persistent volumes using StorageClass `gp3`.
 
 Production values point services to Amazon RDS and Amazon S3.
+
+<a id="validate-locally"></a>
 
 ## 🧪 Validate Locally
 
@@ -164,15 +183,17 @@ helm upgrade --install auth-service ./apps-manifests/applyhub \
   --values ./apps-manifests/env/dev/auth-service.yaml
 ```
 
+<a id="notes"></a>
+
 ## 📝 Notes
 
 - CI should update image tags in `apps-manifests/env/<env>/`.
 - ExternalSecret resources require matching AWS secret keys/properties.
 - Monitoring values exist under `infrastructure/monitoring/values.yaml`.
 
+<a id="related-repositories"></a>
+
 ## 🔗 Related Repositories
 
-| Repository | Purpose |
-| --- | --- |
-| `https://github.com/applyhub7/applyhub` | Microservice source code and Docker image build pipeline |
-| `https://github.com/applyhub7/applyhub-manifests` | Helm chart, environment values and Argo CD application definitions |
+[applyhub7/applyhub](https://github.com/applyhub7/applyhub) contains the
+microservice source code, Dockerfiles and CI/CD workflows.
