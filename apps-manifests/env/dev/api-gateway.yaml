@@ -1,6 +1,6 @@
 image:
   name: noseyug/applyhub-api-gateway
-  tag: "41c954e"
+  tag: "8e5a685"
 container:
   port: 4000
 configmap:
