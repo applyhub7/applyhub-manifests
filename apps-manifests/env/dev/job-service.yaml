@@ -1,6 +1,6 @@
 image:
   name: noseyug/applyhub-job-service
-  tag: "6d0c9f6"
+  tag: "41c954e"
 container:
   port: 4002
 configmap:
